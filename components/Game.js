@@ -130,10 +130,10 @@ const Game = () => {
     }, [bestScore])
 
     useEffect(()=>{
-        Dimensions.addEventListener("change", updateWindowWidth)
+        const dimensionsHandler = Dimensions.addEventListener("change", updateWindowWidth)
 
         return ()=>{
-            Dimensions.removeEventListener("change", updateWindowWidth)
+            dimensionsHandler.remove()
         }
     })
 
