@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import Header from './components/Header.js';
 import Footer from './components/Footer.js';
 import Game from './components/Game.js';
@@ -27,11 +27,11 @@ export default function App() {
 
 
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
+    <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
       <Header />
       <Game />
       <Footer />
-    </View>
+    </SafeAreaView>
   );
 }
 

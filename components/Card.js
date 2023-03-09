@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Constants from '../constants/Styles'
 
@@ -12,11 +12,11 @@ const Card = ({ card, handleChoice, choiceOne, choiceTwo, disabled }) => {
         <Text style={styles.card}>
             {
                 card.matched || card.id === choiceOne?.id || card.id === choiceTwo?.id ?
-                    <View style={[styles.cardBackWrapper, styles.cardFront]}>
-                        <Text>{card.front}</Text>
-                    </View> :
+                    <TouchableOpacity style={[styles.cardBackWrapper, styles.cardFront]}>
+                        <Text style={styles.cardText}>{card.front}</Text>
+                    </TouchableOpacity> :
                     <TouchableOpacity style={[styles.cardBackWrapper, styles.cardBack]} onPress={handleClick}>
-                        <Text>{card.back}</Text>
+                        <Text style={styles.cardText}>{card.back}</Text>
                     </TouchableOpacity>
             }
         </Text>
@@ -27,17 +27,26 @@ export default Card
 
 const styles = StyleSheet.create({
     card: {
-        fontSize: Constants.fontXxl,
         margin: 10,
-        position: "relative",
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
     },
+    cardText: {
+        fontSize: Constants.fontXxl,
+    },
+    cardFront: {
+        cursor: 'default',
+        pointerEvents: 'none',
+        userSelect: 'none',
+    },
+    cardBack: {
+        userSelect: 'none'
+    },
     cardBackWrapper: {
-        width: 140,
+        width: 130,
         aspectRatio: 1,
-        height: 140,
+        height: 130,
         backgroundColor: Constants.colorPrimaryDark,
         borderRadius: 8,
         borderColor: Constants.colorPrimary,

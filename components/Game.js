@@ -105,7 +105,7 @@ const Game = () => {
                                 <Text style={styles.winner}>
                                     <Text>🔥</Text>
                                     <Text style={styles.winnerText}>COMPLETADO</Text>
-                                    <View><Text style={styles.winnerButtonsText}>Turnos: {turns}</Text></View>
+                                    <View><Text style={styles.winnerButtonsTurns}>Turnos: {turns}</Text></View>
                                 </Text>
                                 <View style={styles.winnerButtons}>
                                     <TouchableOpacity onPress={shuffleCards} style={styles.winnerButtonsWrapper}>
@@ -157,7 +157,9 @@ const styles = StyleSheet.create({
         padding: 10,
         width: '100%',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: 20,
+        marginBottom: 80
     },
     newGame: {
         fontSize: Constants.fontXl,
@@ -206,6 +208,12 @@ const styles = StyleSheet.create({
         maxWidth: 400,
         minWidth: 320
     },
+    winnerButtonsTurns: {
+        fontSize: Constants.fontMd,
+        padding: 10,
+        color: Constants.colorWhite,
+        fontFamily: Constants.fontPrimary,
+    },
     winnerButtonsText: {
         fontSize: Constants.fontMd,
         padding: 10,
@@ -223,10 +231,11 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     winnerButtonsWrapper: {
+        display: 'flex',
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
-        flex: 1
+        flex: 1,
     },
     turns: {
         borderRadius: 4,
