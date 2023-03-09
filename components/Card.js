@@ -31,9 +31,19 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        borderRadius: 8,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+        elevation: 24,
     },
     cardText: {
         fontSize: Constants.fontXxl,
+        paddingBottom: 8
     },
     cardFront: {
         cursor: 'default',
@@ -52,8 +62,6 @@ const styles = StyleSheet.create({
         borderColor: Constants.colorPrimary,
         borderWidth: 4,
         padding: 4,
-        lineHeight: 1,
-        textAlignVertical: 'middle',
         justifyContent: 'center',
         alignItems: 'center',
     }

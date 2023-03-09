@@ -22,18 +22,21 @@ const Game = () => {
     /* elijo emojis al azar */
     const selectEmojis = () => {
         const emojisArray = [...emojis]
+        const newArray = []
+
         for (let i = 0; i < 6; i++) {
             const randomElement = emojisArray[Math.floor(Math.random() * emojisArray.length)];
 
             /* si ya existe en el array de cards, busco de nuevo */
-            const found = cardPics.find(card => card.front === randomElement)
+            const found = newArray.find(card => card.front === randomElement)
+
             if (found) {
                 i = i--
                 continue;
             }
-
-            setCardPics(cardPics => [...cardPics, { "front": randomElement, "back": "⚛️", "matched": false }])
+            newArray.push({ "front": randomElement, "back": "⚛️", "matched": false })
         }
+        setCardPics(newArray)
     }
 
     /* mezclar cards */
@@ -180,7 +183,6 @@ const styles = StyleSheet.create({
         outlineColor: Constants.colorWhite,
         outlineWidth: 2,
         outlineStyle: "solid",
-        outlineOffset: 8,
         borderColor: Constants.colorPrimaryDark,
         backgroundColor: Constants.colorPrimary,
         color: Constants.colorWhite,
@@ -192,6 +194,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
+        shadowColor: "#000",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+        elevation: 24,
     },
     winnerText: {
         display: 'flex',
