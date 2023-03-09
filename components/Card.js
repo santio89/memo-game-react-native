@@ -9,7 +9,7 @@ const Card = ({ card, handleChoice, choiceOne, choiceTwo, disabled }) => {
     }
 
     return (
-        <Text style={styles.card}>
+        <Text style={[styles.card, card.matched?styles.cardMatched:""]}>
             {
                 card.matched || card.id === choiceOne?.id || card.id === choiceTwo?.id ?
                     <TouchableOpacity style={[styles.cardBackWrapper, styles.cardFront]}>
@@ -35,7 +35,17 @@ const styles = StyleSheet.create({
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
-            height: 12,
+            height: 6,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+        elevation: 24,
+    },
+    cardMatched: {
+        shadowColor: Constants.colorPrimary,
+        shadowOffset: {
+            width: 0,
+            height: 6,
         },
         shadowOpacity: 0.58,
         shadowRadius: 16.00,

@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Constants from '../constants/Styles.js';
 import Card from './Card';
 import emojis from '../constants/Emojis.js';
+import { storageGetItem, storageSetItem } from './AsyncStorage.js';
 
 
 const Game = () => {
@@ -16,7 +17,29 @@ const Game = () => {
     const [disabled, setDisabled] = useState(false)
     const [winner, setWinner] = useState(false)
     const [startState, setStartState] = useState(false)
+    const [bestScore, setBestScore] = useState(0);
     const windowWidth = Dimensions.get('window').width;
+
+
+    /* storage-max score */
+    const storeData = async (score) => {
+        try {
+            await storageSetItem("mg-score", JSON.stringify(score));
+        } catch (error) {
+            console.log("error saving data to storage")
+        }
+    };
+
+    const retrieveData = async () => {
+        try {
+            const value = await storageGetItem('mg-score');
+            if (value !== null) {
+                setBestScore(JSON.parse(value))
+            }
+        } catch (error) {
+            console.log("error retrieving data from storage")
+        }
+    };
 
 
     /* elijo emojis al azar */
@@ -86,25 +109,31 @@ const Game = () => {
         const everyMatch = cards.length > 0 && cards.every(card => card.matched === true)
         if (everyMatch) {
             setTimeout(() => {
+                bestScore === 0 ? setBestScore(turns) : (turns < bestScore && setBestScore(turns))
                 setWinner(true)
             }, 1000)
         }
     }, [cards])
 
     useEffect(() => {
+        retrieveData()
         selectEmojis()
     }, [])
 
-    useEffect(()=>{console.log(cards)}, [cards])
+    useEffect(() => {
+        storeData(bestScore)
+    }, [bestScore])
 
     return (
         <View style={styles.gameContainer}>
-            {/* <Text>Max Score: </Text> */}
             {
                 !startState ?
-                    <TouchableOpacity onPress={shuffleCards}>
-                        <Text style={styles.newGame}>Nuevo Juego</Text>
-                    </TouchableOpacity> :
+                    <>
+                        <TouchableOpacity onPress={shuffleCards}>
+                            <Text style={styles.newGame}>Nuevo Juego</Text>
+                        </TouchableOpacity>
+                        <View style={styles.bestScore}><Text style={styles.bestScoreText}>Mejor Score: </Text><Text style={styles.bestScoreNumber}>{bestScore}</Text></View>
+                    </> :
                     <>
                         {winner === true ?
                             <>
@@ -120,6 +149,7 @@ const Game = () => {
                                 </View>
                             </> :
                             <>
+                                <View style={styles.bestScore}><Text style={styles.bestScoreText}>Mejor Score: </Text><Text style={styles.bestScoreNumber}>{bestScore}</Text></View>
                                 <View style={styles.turnsButtonsContainer}>
                                     <View style={styles.turns}>
                                         <Text style={styles.turnsText}>Turnos: {turns}</Text>
@@ -162,9 +192,9 @@ const styles = StyleSheet.create({
     gameContainer: {
         padding: 10,
         width: '100%',
+        maxWidth: 800,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 20,
         marginBottom: 80
     },
     newGame: {
@@ -177,6 +207,22 @@ const styles = StyleSheet.create({
         backgroundColor: Constants.colorPrimary,
         color: Constants.colorWhite,
         margin: 20,
+    },
+    bestScore: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10
+    },
+    bestScoreText: {
+        fontSize: Constants.fontMd,
+        color: Constants.colorWhite,
+        fontFamily: Constants.fontPrimary,
+        alignSelf: 'flex-end',
+    },
+    bestScoreNumber: {
+        fontFamily: Constants.fontPrimaryBold,
+        color: Constants.colorPrimary,
+        fontSize: Constants.fontXl
     },
     winner: {
         fontSize: Constants.fontLg,
@@ -275,7 +321,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '40%',
         maxWidth: 400,
-        minWidth: 320
+        minWidth: 320,
+        marginBottom: 10
     },
     cardsContainer: {
         padding: 20,
