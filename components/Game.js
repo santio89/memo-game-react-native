@@ -97,6 +97,7 @@ const Game = () => {
 
     return (
         <View style={styles.gameContainer}>
+            {/* <Text>Max Score: </Text> */}
             {
                 !startState ?
                     <TouchableOpacity onPress={shuffleCards}>

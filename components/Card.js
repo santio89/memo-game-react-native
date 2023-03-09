@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     },
     cardText: {
         fontSize: Constants.fontXxl,
-        paddingBottom: 8
     },
     cardFront: {
         cursor: 'default',
