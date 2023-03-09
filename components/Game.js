@@ -31,7 +31,7 @@ const Game = () => {
             const found = newArray.find(card => card.front === randomElement)
 
             if (found) {
-                i = i--
+                i--
                 continue;
             }
             newArray.push({ "front": randomElement, "back": "⚛️", "matched": false })
@@ -94,6 +94,8 @@ const Game = () => {
     useEffect(() => {
         selectEmojis()
     }, [])
+
+    useEffect(()=>{console.log(cards)}, [cards])
 
     return (
         <View style={styles.gameContainer}>
