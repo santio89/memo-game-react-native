@@ -18,7 +18,7 @@ const Game = () => {
     const [winner, setWinner] = useState(false)
     const [startState, setStartState] = useState(false)
     const [bestScore, setBestScore] = useState("-");
-    const windowWidth = Dimensions.get('window').width;
+    const [windowWidth, setWindowWidth] = useState(Dimensions.get('window').width);
 
 
     /* storage-max score */
@@ -91,6 +91,11 @@ const Game = () => {
         setDisabled(false)
     }
 
+    const updateWindowWidth = ()=>{
+        setWindowWidth(Dimensions.get('window').width)
+    }
+
+
     useEffect(() => {
         if (choiceOne && choiceTwo) {
             setDisabled(true)
@@ -123,6 +128,14 @@ const Game = () => {
     useEffect(() => {
         storeData(bestScore)
     }, [bestScore])
+
+    useEffect(()=>{
+        Dimensions.addEventListener("change", updateWindowWidth)
+
+        return ()=>{
+            Dimensions.removeEventListener("change", updateWindowWidth)
+        }
+    })
 
     return (
         <View style={styles.gameContainer}>
@@ -168,7 +181,8 @@ const Game = () => {
                                             renderItem={({ item }) => (
                                                 <Card card={item} handleChoice={handleChoice} choiceOne={choiceOne} choiceTwo={choiceTwo} disabled={disabled} />
                                             )}
-                                            keyExtractor={card => card.id}
+                                            key={'-'}
+                                            keyExtractor={card => ("-"+card.id)}
                                         />
                                         : <FlatList contentContainerStyle={styles.cardsContainer}
                                             data={cards}
@@ -176,7 +190,8 @@ const Game = () => {
                                             renderItem={({ item }) => (
                                                 <Card card={item} handleChoice={handleChoice} choiceOne={choiceOne} choiceTwo={choiceTwo} disabled={disabled} />
                                             )}
-                                            keyExtractor={card => card.id}
+                                            key={'#'}
+                                            keyExtractor={card => ("#"+card.id)}
                                         />
                                 }
                             </>}
