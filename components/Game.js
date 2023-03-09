@@ -17,7 +17,7 @@ const Game = () => {
     const [disabled, setDisabled] = useState(false)
     const [winner, setWinner] = useState(false)
     const [startState, setStartState] = useState(false)
-    const [bestScore, setBestScore] = useState(0);
+    const [bestScore, setBestScore] = useState("-");
     const windowWidth = Dimensions.get('window').width;
 
 
@@ -109,7 +109,7 @@ const Game = () => {
         const everyMatch = cards.length > 0 && cards.every(card => card.matched === true)
         if (everyMatch) {
             setTimeout(() => {
-                bestScore === 0 ? setBestScore(turns) : (turns < bestScore && setBestScore(turns))
+                bestScore === "-" ? setBestScore(turns) : (turns < bestScore && setBestScore(turns))
                 setWinner(true)
             }, 1000)
         }
@@ -255,7 +255,8 @@ const styles = StyleSheet.create({
     },
     winnerText: {
         display: 'flex',
-        margin: 20,
+        marginTop: 20,
+        marginBottom: 20,
     },
     winnerButtons: {
         flexDirection: 'row',
