@@ -243,11 +243,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
-        shadowColor: "#000",
-        shadowColor: "#000",
+        shadowColor: Constants.colorPrimary,
         shadowOffset: {
             width: 0,
-            height: 12,
+            height: 6,
         },
         shadowOpacity: 0.58,
         shadowRadius: 16.00,
