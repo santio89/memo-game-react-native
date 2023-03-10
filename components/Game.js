@@ -64,6 +64,7 @@ const Game = () => {
 
     /* mezclar cards */
     const shuffleCards = () => {
+        selectEmojis()
         /* duplico cards */
         const cards = [...cardPics, ...cardPics]
             /* mezclo al azar con sort */
@@ -174,7 +175,7 @@ const Game = () => {
 
                                 </View>
                                 {
-                                    windowWidth > 1200 ?
+                                    windowWidth > 800 ?
                                         <FlatList contentContainerStyle={styles.cardsContainer}
                                             data={cards}
                                             numColumns={4}
@@ -222,6 +223,7 @@ const styles = StyleSheet.create({
         backgroundColor: Constants.colorPrimary,
         color: Constants.colorWhite,
         margin: 20,
+        textAlign: 'center'
     },
     bestScore: {
         justifyContent: 'center',
