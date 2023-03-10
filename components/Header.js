@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Dimensions, TouchableWithoutFeedback, Keyboard, Platform } from 'react-native';
+import { Text, View, StyleSheet, TouchableWithoutFeedback, Keyboard, Platform } from 'react-native';
 import Constants from '../constants/Styles';
 
 export default function Header() {
@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
     backgroundColor: Constants.colorPrimary,
     padding: 8,
     paddingTop: Platform.OS === 'web' ? 8 : 20,
-    width: Dimensions.get('window').width,
     width: '100%',
     marginBottom: 20,
     borderBottomColor: Constants.colorWhite,
